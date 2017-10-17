@@ -17,4 +17,5 @@ public interface MovieDetailsView {
 
      void showReviews(@NonNull List<Review> reviews);
 
+     void showError();
 }

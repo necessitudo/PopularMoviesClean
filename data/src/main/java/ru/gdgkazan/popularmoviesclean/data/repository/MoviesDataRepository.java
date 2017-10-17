@@ -5,7 +5,10 @@ import java.util.concurrent.TimeUnit;
 
 import ru.gdgkazan.popularmoviesclean.data.cache.MoviesCacheTransformer;
 import ru.gdgkazan.popularmoviesclean.data.cache.ReviewsCacheTransformer;
+import ru.gdgkazan.popularmoviesclean.data.cache.VideoCacheTransformer;
 import ru.gdgkazan.popularmoviesclean.data.mapper.MoviesMapper;
+import ru.gdgkazan.popularmoviesclean.data.mapper.ReviewsMapper;
+import ru.gdgkazan.popularmoviesclean.data.mapper.VideosMapper;
 import ru.gdgkazan.popularmoviesclean.data.model.response.MoviesResponse;
 import ru.gdgkazan.popularmoviesclean.data.model.response.ReviewsResponse;
 import ru.gdgkazan.popularmoviesclean.data.model.response.VideosResponse;
@@ -34,19 +37,27 @@ public class MoviesDataRepository implements MoviesRepository {
 
     @Override
     public Observable<List<Review>> getReviews(int movieId) {
-        return null;
-        /*return ApiFactory.getMoviesService()
+
+        return ApiFactory.getMoviesService()
                 .getReviews(movieId)
                 .map(ReviewsResponse::getReviews)
                 .compose(new ReviewsCacheTransformer())
                 .flatMap(Observable::from)
-                .map()*/
+                .map(new ReviewsMapper())
+                .toList();
 
     }
 
+
     @Override
     public Observable<List<Video>> getVideos(int movieId) {
-        return null;
+        return ApiFactory.getMoviesService()
+                .getVideos(movieId)
+                .map(VideosResponse::getVideos)
+                .compose(new VideoCacheTransformer())
+                .flatMap(Observable::from)
+                .map(new VideosMapper())
+                .toList();
     }
 }
 

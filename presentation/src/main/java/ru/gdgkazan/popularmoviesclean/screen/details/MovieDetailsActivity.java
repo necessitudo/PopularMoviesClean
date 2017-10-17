@@ -30,6 +30,7 @@ import ru.gdgkazan.popularmoviesclean.data.repository.RepositoryProvider;
 import ru.gdgkazan.popularmoviesclean.domain.model.Movie;
 import ru.gdgkazan.popularmoviesclean.domain.model.Review;
 import ru.gdgkazan.popularmoviesclean.domain.model.Video;
+import ru.gdgkazan.popularmoviesclean.domain.usecase.MoviesDetailUseCase;
 import ru.gdgkazan.popularmoviesclean.domain.usecase.MoviesUseCase;
 import ru.gdgkazan.popularmoviesclean.screen.movies.MoviesPresenter;
 import ru.gdgkazan.popularmoviesclean.utils.Images;
@@ -87,10 +88,18 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
         Movie movie = (Movie) getIntent().getSerializableExtra(EXTRA_MOVIE);
         showMovie(movie);
 
+        /**
+         * TODO : task
+         * Нужно добавить в класс Movie поле id и его уже передавать в презентер!
+         *
+         *
+         *
+         *
+         * */
 
-        MoviesUseCase moviesUseCase = new MoviesUseCase(RepositoryProvider.getMoviesRepository(), RxUtils.async());
+        MoviesDetailUseCase moviesDetailUseCase = new MoviesDetailUseCase(RepositoryProvider.getMoviesRepository(), RxUtils.async(),RxUtils.async(), 219);
         LifecycleHandler lifecycleHandler = LoaderLifecycleHandler.create(this, getSupportLoaderManager());
-        MovieDetailsPresenter presenter = new MovieDetailsPresenter(this, moviesUseCase,lifecycleHandler);
+        MovieDetailsPresenter presenter = new MovieDetailsPresenter(this, moviesDetailUseCase,lifecycleHandler);
         presenter.init();
 
         /**
@@ -162,6 +171,11 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
 
     @Override
     public void showReviews(@NonNull List<Review> reviews) {
+
+    }
+
+    @Override
+    public void showError() {
 
     }
 }

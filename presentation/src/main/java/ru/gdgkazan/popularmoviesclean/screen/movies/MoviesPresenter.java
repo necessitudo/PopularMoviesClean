@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import ru.arturvasilov.rxloader.LifecycleHandler;
 import ru.gdgkazan.popularmoviesclean.R;
 import ru.gdgkazan.popularmoviesclean.domain.usecase.MoviesUseCase;
-import ru.gdgkazan.popularmoviesclean.screen.details.MovieDetailsActivity;
 
 /**
  * @author Artur Vasilov
