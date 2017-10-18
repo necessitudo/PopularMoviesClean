@@ -97,7 +97,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
          *
          * */
 
-        MoviesDetailUseCase moviesDetailUseCase = new MoviesDetailUseCase(RepositoryProvider.getMoviesRepository(), RxUtils.async(),RxUtils.async(), 219);
+        MoviesDetailUseCase moviesDetailUseCase = new MoviesDetailUseCase(RepositoryProvider.getMoviesRepository(), RxUtils.async(),RxUtils.async(), movie.getmId());
         LifecycleHandler lifecycleHandler = LoaderLifecycleHandler.create(this, getSupportLoaderManager());
         MovieDetailsPresenter presenter = new MovieDetailsPresenter(this, moviesDetailUseCase,lifecycleHandler);
         presenter.init();

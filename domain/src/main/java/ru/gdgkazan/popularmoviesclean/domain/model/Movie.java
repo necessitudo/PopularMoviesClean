@@ -12,17 +12,24 @@ public class Movie implements Serializable {
     private String mTitle;
     private String mReleasedDate;
     private double mVoteAverage;
+    private int    mId;
 
     public Movie() {
     }
 
+    public int getmId() {
+        return mId;
+    }
+
     public Movie(String posterPath, String overview,
-                 String title, String releasedDate, double voteAverage) {
+                 String title, String releasedDate, double voteAverage, int id) {
         mPosterPath = posterPath;
         mOverview = overview;
         mTitle = title;
         mReleasedDate = releasedDate;
+
         mVoteAverage = voteAverage;
+        mId          = id;
     }
 
     public String getPosterPath() {
