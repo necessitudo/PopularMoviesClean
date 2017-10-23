@@ -178,4 +178,11 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
     public void showError() {
 
     }
+
+    @Override
+    public void onSuccess(Boolean success) {
+
+    }
+
+
 }
