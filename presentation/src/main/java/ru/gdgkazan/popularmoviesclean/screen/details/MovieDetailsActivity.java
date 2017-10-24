@@ -11,6 +11,9 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.transition.Slide;
 import android.view.MenuItem;
@@ -31,8 +34,6 @@ import ru.gdgkazan.popularmoviesclean.domain.model.Movie;
 import ru.gdgkazan.popularmoviesclean.domain.model.Review;
 import ru.gdgkazan.popularmoviesclean.domain.model.Video;
 import ru.gdgkazan.popularmoviesclean.domain.usecase.MoviesDetailUseCase;
-import ru.gdgkazan.popularmoviesclean.domain.usecase.MoviesUseCase;
-import ru.gdgkazan.popularmoviesclean.screen.movies.MoviesPresenter;
 import ru.gdgkazan.popularmoviesclean.utils.Images;
 
 public class MovieDetailsActivity extends AppCompatActivity implements MovieDetailsView {
@@ -41,6 +42,8 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
 
     public static final String IMAGE = "image";
     public static final String EXTRA_MOVIE = "extraMovie";
+
+    private  MoviesDetailAdapter mAdapter;
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -51,7 +54,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
     @BindView(R.id.image)
     ImageView mImage;
 
-    @BindView(R.id.title)
+   @BindView(R.id.title)
     TextView mTitleTextView;
 
     @BindView(R.id.overview)
@@ -59,6 +62,9 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
 
     @BindView(R.id.rating)
     TextView mRatingTextView;
+
+    @BindView(R.id.recyclerView)
+    RecyclerView mRecyclerView;
 
     public static void navigate(@NonNull AppCompatActivity activity, @NonNull View transitionImage,
                                 @NonNull Movie movie) {
@@ -101,6 +107,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
         LifecycleHandler lifecycleHandler = LoaderLifecycleHandler.create(this, getSupportLoaderManager());
         MovieDetailsPresenter presenter = new MovieDetailsPresenter(this, moviesDetailUseCase,lifecycleHandler);
         presenter.init();
+
 
         /**
          * TODO : task
@@ -171,6 +178,12 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
 
     @Override
     public void showReviews(@NonNull List<Review> reviews) {
+
+        mAdapter = new MoviesDetailAdapter(reviews);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setAdapter(mAdapter);
 
     }
 

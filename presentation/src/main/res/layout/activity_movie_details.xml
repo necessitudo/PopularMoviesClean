@@ -43,5 +43,6 @@
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_movie_details"/>
+    <include layout="@layout/reviews_and_videos"/>
 
 </android.support.design.widget.CoordinatorLayout>

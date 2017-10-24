@@ -39,16 +39,15 @@ public class MovieDetailsPresenter {
        rx.Observable.zip(reviews, videos, new Func2<List<Review>, List<Video>, Boolean>() {
                    @Override
                    public Boolean call(List<Review> reviews, List<Video> videos) {
+                       mMoviesDetailView.showReviews(reviews);
                        return true;
                    }
 
                }).subscribe(mMoviesDetailView::onSuccess, throwable->mMoviesDetailView.showError());
 
-       /** TODO : task
-        * нужно добавить индикатор прогресса загрузки, в onSuccess его скрывать если пришло true
-        * нужно наконец запилить новую вьюху вместо content_movie_details, потому что вставить
-        * в неее Recycler нельзя!
-        */
+
+
+
 
        /*mMoviesDetailUseCase.getReviews()
                .compose(mLifecycleHandler.load(R.id.reviews_request_id))
@@ -57,6 +56,11 @@ public class MovieDetailsPresenter {
 
    }
 
+    public void resolveDownload(List<Review> reviews, List<Video> videos) {
+
+
+
+    }
 
 
 
