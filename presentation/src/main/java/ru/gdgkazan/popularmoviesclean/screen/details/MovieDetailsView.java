@@ -13,12 +13,10 @@ import ru.gdgkazan.popularmoviesclean.domain.model.Video;
 
 public interface MovieDetailsView {
 
-     void showTrailers(@NonNull List<Video> videos);
+    void showTrailersReviews(@NonNull List<Review> reviews, @NonNull List<Video> videos);
 
-     void showReviews(@NonNull List<Review> reviews);
+    void showError();
 
-     void showError();
-
-    void onSuccess(Boolean success);
+    void showSuccess(Boolean success);
 
 }

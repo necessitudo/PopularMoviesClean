@@ -45,6 +45,9 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
 
     private  MoviesDetailAdapter mAdapter;
 
+    private Movie movie;
+
+
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
@@ -54,14 +57,14 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
     @BindView(R.id.image)
     ImageView mImage;
 
-   @BindView(R.id.title)
+/*   @BindView(R.id.title)
     TextView mTitleTextView;
 
     @BindView(R.id.overview)
     TextView mOverviewTextView;
 
     @BindView(R.id.rating)
-    TextView mRatingTextView;
+    TextView mRatingTextView;*/
 
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
@@ -91,17 +94,8 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        Movie movie = (Movie) getIntent().getSerializableExtra(EXTRA_MOVIE);
+        movie = (Movie) getIntent().getSerializableExtra(EXTRA_MOVIE);
         showMovie(movie);
-
-        /**
-         * TODO : task
-         * Нужно добавить в класс Movie поле id и его уже передавать в презентер!
-         *
-         *
-         *
-         *
-         * */
 
         MoviesDetailUseCase moviesDetailUseCase = new MoviesDetailUseCase(RepositoryProvider.getMoviesRepository(), RxUtils.async(),RxUtils.async(), movie.getmId());
         LifecycleHandler lifecycleHandler = LoaderLifecycleHandler.create(this, getSupportLoaderManager());
@@ -160,30 +154,27 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
 
         Images.loadMovie(mImage, movie, Images.WIDTH_780);
 
-        String year = movie.getReleasedDate().substring(0, 4);
+        /*String year = movie.getReleasedDate().substring(0, 4);
         mTitleTextView.setText(getString(R.string.movie_title, movie.getTitle(), year));
         mOverviewTextView.setText(movie.getOverview());
 
         String average = String.valueOf(movie.getVoteAverage());
         average = average.length() > 3 ? average.substring(0, 3) : average;
         average = average.length() == 3 && average.charAt(2) == '0' ? average.substring(0, 1) : average;
-        mRatingTextView.setText(getString(R.string.rating, average, MAXIMUM_RATING));
+        mRatingTextView.setText(getString(R.string.rating, average, MAXIMUM_RATING));*/
     }
 
 
     @Override
-    public void showTrailers(@NonNull List<Video> videos) {
+    public void showTrailersReviews(@NonNull List<Review> reviews, @NonNull List<Video> videos) {
 
-    }
 
-    @Override
-    public void showReviews(@NonNull List<Review> reviews) {
-
-        mAdapter = new MoviesDetailAdapter(reviews);
+        mAdapter = new MoviesDetailAdapter(reviews, movie);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mAdapter);
+
 
     }
 
@@ -193,9 +184,10 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
     }
 
     @Override
-    public void onSuccess(Boolean success) {
+    public void showSuccess(Boolean success) {
 
     }
+
 
 
 }

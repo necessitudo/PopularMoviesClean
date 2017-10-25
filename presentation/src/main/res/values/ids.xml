@@ -3,4 +3,7 @@
     <item name="movies_request_id" type="id"/>
     <item name="videos_request_id" type="id"/>
     <item name="reviews_request_id" type="id"/>
+    <item name="title_id" type="id"/>
+    <item name="review_id" type="id"/>
+    <item name="video_id" type="id"/>
 </resources>

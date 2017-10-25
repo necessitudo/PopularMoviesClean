@@ -39,11 +39,11 @@ public class MovieDetailsPresenter {
        rx.Observable.zip(reviews, videos, new Func2<List<Review>, List<Video>, Boolean>() {
                    @Override
                    public Boolean call(List<Review> reviews, List<Video> videos) {
-                       mMoviesDetailView.showReviews(reviews);
+                       mMoviesDetailView.showTrailersReviews(reviews,videos);
                        return true;
                    }
 
-               }).subscribe(mMoviesDetailView::onSuccess, throwable->mMoviesDetailView.showError());
+               }).subscribe(mMoviesDetailView::showSuccess, throwable->mMoviesDetailView.showError());
 
 
 
