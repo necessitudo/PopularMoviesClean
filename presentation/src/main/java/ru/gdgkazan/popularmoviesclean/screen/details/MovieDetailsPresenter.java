@@ -46,22 +46,11 @@ public class MovieDetailsPresenter {
                }).subscribe(mMoviesDetailView::showSuccess, throwable->mMoviesDetailView.showError());
 
 
-
-
-
        /*mMoviesDetailUseCase.getReviews()
                .compose(mLifecycleHandler.load(R.id.reviews_request_id))
                .subscribe(mMoviesDetailView::showReviews, throwable->mMoviesDetailView.showError());*/
 
 
    }
-
-    public void resolveDownload(List<Review> reviews, List<Video> videos) {
-
-
-
-    }
-
-
 
 }

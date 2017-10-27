@@ -13,11 +13,13 @@ import butterknife.ButterKnife;
 import ru.gdgkazan.popularmoviesclean.R;
 import ru.gdgkazan.popularmoviesclean.domain.model.Movie;
 import ru.gdgkazan.popularmoviesclean.domain.model.Review;
+import ru.gdgkazan.popularmoviesclean.domain.model.Video;
 
 public class MoviesDetailAdapter extends RecyclerView.Adapter<MoviesDetailAdapter.MovieDetailsHolder> {
 
     private static final String MAXIMUM_RATING = "10";
 
+    private List<Video> mVideos;
     private List<Review> mReviews;
 
     private String title;
@@ -26,7 +28,7 @@ public class MoviesDetailAdapter extends RecyclerView.Adapter<MoviesDetailAdapte
 
     public  class MovieDetailsHolder extends RecyclerView.ViewHolder {
 
-        public TextView review;
+        public TextView review, video_text;
 
         public TextView mTitleTextView;
 
@@ -47,14 +49,18 @@ public class MoviesDetailAdapter extends RecyclerView.Adapter<MoviesDetailAdapte
                 case R.id.review_id:
                     review = (TextView) itemView.findViewById(R.id.review_text);
                     break;
+                case R.id.video_id:
+                    video_text = (TextView) itemView.findViewById(R.id.video_id);
+                    break;
             }
 
         }
     }
 
-    public MoviesDetailAdapter(List<Review> reviews, Movie movie){
+    public MoviesDetailAdapter(List<Review> reviews, List<Video> videos, Movie movie){
 
         mReviews = reviews;
+        mVideos  = videos;
 
         String year = movie.getReleasedDate().substring(0, 4);
         title = R.string.movie_title+" "+movie.getTitle()+" "+year;
@@ -80,7 +86,10 @@ public class MoviesDetailAdapter extends RecyclerView.Adapter<MoviesDetailAdapte
             case R.id.review_id:
                  itemView = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.content_reviews, parent, false);
-                break;
+                 break;
+            case  R.id.video_id:
+                itemView = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.content_videos, parent, false);
         }
 
         return new MovieDetailsHolder(itemView, viewType);
@@ -100,27 +109,28 @@ public class MoviesDetailAdapter extends RecyclerView.Adapter<MoviesDetailAdapte
             case  R.id.review_id:
                 holder.review.setText(mReviews.get(position-1).getAuthor());
                 break;
+            case  R.id.video_id:
+                holder.video_text.setText(mVideos.get(position-1).getName());
+                break;
         }
-
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position==0){
-            return  R.id.title_id;
-        }
 
-        else {
+        if(position>=1 && position<mReviews.size()){
             return R.id.review_id;
         }
-    }
+        else if(position>=mReviews.size() && position<=mVideos.size()){
+            return R.id.video_id;
+        }
 
+        return R.id.title_id;
+    }
 
     @Override
     public int getItemCount() {
-        return mReviews.size()+1;
+        return mReviews.size()+mVideos.size()+1;
     }
-
-
 
 }

@@ -168,13 +168,11 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
     @Override
     public void showTrailersReviews(@NonNull List<Review> reviews, @NonNull List<Video> videos) {
 
-
-        mAdapter = new MoviesDetailAdapter(reviews, movie);
+        mAdapter = new MoviesDetailAdapter(reviews,videos, movie);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mAdapter);
-
 
     }
 
